@@ -63,7 +63,7 @@ evVarFriend_WJetsToLNu_HT1200to2500.root
 evVarFriend_WJetsToLNu_HT2500toInf.root
 ```
 
-Note: I renamed _evVarFriend_T1tttt_MiniAOD_19_01_v2.root_ to _evVarFriend_T1tttt_MiniAOD_19_01.root_ and removed _FRIEND_TOTAL_SIGNAL.root_
+**Note:** I renamed _evVarFriend_T1tttt_MiniAOD_19_01_v2.root_ to _evVarFriend_T1tttt_MiniAOD_19_01.root_ and removed _FRIEND_TOTAL_SIGNAL.root_
 
 </p>
 </details>
@@ -74,7 +74,7 @@ The event preselection is done using `skim_friend_trees.sh`, which can be made e
 ```
 $ chmod +x skim_friend_trees.sh
 ```
-Then run the bash script. **(Note: The working directory is hardcoded in the script, so you will need to manually modify the correct path in the file.)** It utilizes the _rooteventselector_ feature of ROOT 6.XX for quick and efficient event preselection and skimming of the friend trees. The preselection cuts and the selected input features for the DNN training are determined in the sript.
+Then run the bash script. (**Note:** The working directory is hardcoded in the script, so you will need to manually modify the correct path in the file.) It utilizes the _rooteventselector_ feature of ROOT 6.XX for quick and efficient event preselection and skimming of the friend trees. The preselection cuts and the selected input features for the DNN training are determined in the sript.
 ```
 $ ./skim_friend_trees.sh
 ```
@@ -85,9 +85,9 @@ After the script has finished running, the skimmed friend trees can be found in 
 
 The preprocessing script normalizes the chosen input features (subtracts the mean and divides by the standard deviation) and creates train and test sets for each mass point in the _preprocessedData/_ directory.
 
-**Note: the preprocessing script only considers the background samples listed in _background_file_list.txt_ and you will need to manually fix the file paths in the text file.**
+**Note:** the preprocessing script only considers the background samples listed in _background_file_list.txt_ and you will need to manually fix the file paths in the text file.
 
-**Second note: the script also adds _sampleName_ column to the train/test sets. It is done by mapping each sample name to an integer. This is encoding/decoding method is implemented very clumsily in the _utilities.py_ file. Make sure it is updated to encompass all the signal/background samples you use.**
+**Second note:** the script also adds _sampleName_ column to the train/test sets. It is done by mapping each sample name to an integer. This is encoding/decoding method is implemented very clumsily in the _utilities.py_ file. Make sure it is updated to encompass all the signal/background samples you use.
 ```
 $ python preprocess_massPoints.py
 ```
@@ -106,7 +106,7 @@ You can now plot the ROC curve and the DNN output distribution for each mass poi
 ```
 $ python roc_output_plotter.py
 ```
-**Note: this script is suboptimal, as it needs to be executed once for each mass point (i.e. six times). You need to change the mass point every time inside the script. It is currently done on the line 31.**
+**Note:** this script is suboptimal, as it needs to be executed once for each mass point (i.e. six times). You need to change the mass point every time inside the script. It is currently done on the line 31.
 
 ### 6. Write the DNN output to the original friend trees
 
