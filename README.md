@@ -10,7 +10,7 @@ $ git clone https://github.com/kimmokal/susyDNN
 $ cd susyDNN/
 ```
 
-It is advisable to establish a Python virtual environment in which to install the required packages.
+Create a virtual environment in which to install the required Python packages.
 ```
 $ virtualenv venv
 $ source venv/bin/activate
