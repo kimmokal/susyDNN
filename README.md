@@ -63,7 +63,7 @@ evVarFriend_WJetsToLNu_HT1200to2500.root
 evVarFriend_WJetsToLNu_HT2500toInf.root
 ```
 
-_Note: I renamed_ evVarFriend_T1tttt_MiniAOD_19_01_v2.root _to_ evVarFriend_T1tttt_MiniAOD_19_01.root _and removed_ FRIEND_TOTAL_SIGNAL.root
+Note: I renamed _evVarFriend_T1tttt_MiniAOD_19_01_v2.root_ to _evVarFriend_T1tttt_MiniAOD_19_01.root_ and removed _FRIEND_TOTAL_SIGNAL.root_
 
 </p>
 </details>
@@ -79,3 +79,33 @@ Then run the bash script. **(Note: The working directory is hardcoded in the scr
 $ ./skim_friend_trees.sh
 ```
 After the script has finished running, the skimmed friend trees can be found in the _preprocessedData/skimmed/_ directory.
+
+
+### 3. Preprocessing
+
+The preprocessing script normalizes the chosen input features (subtracts the mean and divides by the standard deviation) and creates train and test sets for each mass point in the _preprocessedData/_ directory. **Note: the preprocessing script only considers the background samples listed in _background_file_list.txt_ and you will need to manually fix the file paths in the text file.**
+```
+$ python preprocess_massPoints.py
+```
+Each train/test set only contains one signal sample for a specific mGo/mLSP mass point.
+
+### 4. Neural network training
+
+Train a DNN for each mass point. The trained models are saved to the _models/_ directory. The script assumes by default that a GPU is used for the training. If only CPU is available, some changes to the script may need to be done.
+```
+$ python DNN_train_massPoints.py
+```
+
+### 5. Plot the results
+
+You can now plot the ROC curve and the DNN output distribution for each mass point. This script will save them to the _plots/_ directory in .png and .pdf format.
+```
+$ python roc_output_plotter.py
+```
+**Note: This script is suboptimal, as the script needs to be executed once for each mass point (i.e. six times). You need to change the mass point every time inside the script. It is currently done on the line 31 of the script.**
+
+### 6. Write the DNN output to the original friend trees
+
+```
+$ python write_to_tree.py
+```
