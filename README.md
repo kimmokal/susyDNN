@@ -110,8 +110,8 @@ $ python roc_output_plotter.py
 
 ### 6. Write the DNN output to the original friend trees
 
-Now it is possible to add the DNN predictions to the original friend trees. The following script is far from optimal and has not been validated properly. You will need to create an output directory and change the path in the script.
+Now it is possible to add the DNN predictions to the original friend trees. The following script is far from optimal and has not been validated properly. You will need to create an output directory and change the path in the script. Once again the mass point needs to be chosen and it can be changed inside the script on line 29.
 ```
 $ python write_to_tree.py
 ```
-It would make sense to include the input and output directories as command line options in the future, and the script would definitely benefit from parallelization.
+It would make sense to include the input and output directories as command line options in the future. Also the script would definitely benefit from parallelization. Now by default it processes all the friend trees contained in the input directory and it can be very slow.
