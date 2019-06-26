@@ -83,7 +83,7 @@ After the script has finished running, the skimmed friend trees can be found in 
 
 ### 3. Preprocessing
 
-The preprocessing script normalizes the chosen input features (subtracts the mean and divides by the standard deviation) and creates train and test sets for each mass point in the _preprocessedData/_ directory.
+The preprocessing script normalizes the chosen input features (subtracts the mean and divides by the standard deviation) and creates train and test sets for each mass point in the _preprocessedData/_ directory. The script also saves the StandardScaler to a file as it is needed if the same normalization is to be performed later. For safety reasons, the full list of the training set's variables and the normalized variables are also saved to file.
 
 **Note:** the preprocessing script only considers the background samples listed in _background_file_list.txt_ and you will need to manually fix the file paths in the text file.
 
