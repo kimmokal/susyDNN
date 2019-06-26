@@ -7,7 +7,13 @@ First clone the repository.
 $ git clone https://github.com/kimmokal/susyDNN
 $ cd susyDNN/
 ```
-
+Create the necessary directories.
+```
+$ mkdir preprocessedData
+$ mkdir preprocessedData/skimmed
+$ mkdir models
+$ mkdir plots
+```
 Create a virtual environment in which to install the required Python packages.
 ```
 $ virtualenv venv
