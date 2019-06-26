@@ -1,6 +1,6 @@
 # susyDNN
 
-Training a DNN for classifying signal and background events
+Repository for training signal/background DNN classifier. Required software: Python 2.7 and ROOT 6.XX (for rooteventselector).
 
 ## Workflow
 
