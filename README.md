@@ -83,7 +83,11 @@ After the script has finished running, the skimmed friend trees can be found in 
 
 ### 3. Preprocessing
 
-The preprocessing script normalizes the chosen input features (subtracts the mean and divides by the standard deviation) and creates train and test sets for each mass point in the _preprocessedData/_ directory. **Note: the preprocessing script only considers the background samples listed in _background_file_list.txt_ and you will need to manually fix the file paths in the text file.**
+The preprocessing script normalizes the chosen input features (subtracts the mean and divides by the standard deviation) and creates train and test sets for each mass point in the _preprocessedData/_ directory.
+
+**Note: the preprocessing script only considers the background samples listed in _background_file_list.txt_ and you will need to manually fix the file paths in the text file.**
+
+**Second note: the script also adds _sampleName_ column to the train/test sets. It is done by mapping each sample name to an integer. This is encoding/decoding method is implemented very clumsily in the _utilities.py_ file. Make sure it is updated to encompass all the signal/background samples you use.**
 ```
 $ python preprocess_massPoints.py
 ```
@@ -102,7 +106,7 @@ You can now plot the ROC curve and the DNN output distribution for each mass poi
 ```
 $ python roc_output_plotter.py
 ```
-**Note: This script is suboptimal, as the script needs to be executed once for each mass point (i.e. six times). You need to change the mass point every time inside the script. It is currently done on the line 31 of the script.**
+**Note: this script is suboptimal, as it needs to be executed once for each mass point (i.e. six times). You need to change the mass point every time inside the script. It is currently done on the line 31.**
 
 ### 6. Write the DNN output to the original friend trees
 
