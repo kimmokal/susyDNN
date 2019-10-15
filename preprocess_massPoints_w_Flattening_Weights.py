@@ -38,8 +38,6 @@ for mass_point in mass_point_list:
     hist_sig, x_sig_edges = np.histogram(x_sig, bins = reweight_bins[0], density=1)
     hist_sig = np.asfarray(hist_sig, dtype=np.float32)
 
-    weight_sig_bins = flat_value / hist_sig
-
     dPhi_weighted_sig = df_sig[reweight_var].values.flatten()
     dPhiBins_sig = np.digitize(dPhi_weighted_sig, reweight_bins[0])-1
 
@@ -78,7 +76,6 @@ for mass_point in mass_point_list:
         print sample_name
 
     ### Reweight the background sample ####
-    df_bkg['weights'] = 1
     x_bkg=np.minimum(df_bkg[reweight_var], max(reweight_bins[0]))
     hist_bkg, x_bkg_edges = np.histogram(x_bkg, bins = reweight_bins[0], density=1)
     hist_bkg = np.asfarray(hist_bkg, dtype=np.float32)
