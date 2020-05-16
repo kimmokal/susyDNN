@@ -98,6 +98,7 @@ for mass_point in mass_point_list:
 	numberOfEpochs = 200
 	for epoch in range(numberOfEpochs):
 		epoch_losses = []
+		val_epoch_losses = []
 		epoch_start_time = time.time()
 		for (x_batch, y_batch) in train_data_batched:
 			classifier_model.compile(loss=make_disco_loss(x_batch.numpy()[:,decorr_var_col]), optimizer=opt_model, metrics=['accuracy'])
