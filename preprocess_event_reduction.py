@@ -99,6 +99,9 @@ for njet in range(4,15):
 # Encode the sample names
 df_bkg_reduced['sampleName'] = df_bkg_reduced['sampleName'].apply(lambda x: u.sample_encode(x))
 
+# Shuffle the background events because otherwise they are ordered in nJet
+df_bkg_reduced = df_bkg_reduced.sample(frac=1, random_state=42).reset_index(drop=True)
+
 # # Save the reduced bkg to root file
 # root_out=out_dir+'background_nJet_reduced.root'
 # df_bkg_reduced.to_root(root_out, key='tree')
@@ -142,7 +145,6 @@ for sample_name in pd.unique(df_sig['sampleName']):
     df_sig_train = pd.concat([df_sig_train, df_sample_train])
     df_sig_test = pd.concat([df_sig_test, df_sample_test])
 
-
 # Merge the training and test sets
 train = pd.concat([df_bkg_train, df_sig_train], ignore_index=True)
 test = pd.concat([df_bkg_test, df_sig_test], ignore_index=True)
@@ -172,7 +174,7 @@ hickle.dump(norm_cols, out_dir+'Normalized_input_features_reduced_bkg.hkl')
 minmaxScaler = MinMaxScaler(feature_range=(0.0001,0.9999)).fit( train[norm_cols].values )
 
 # Save the scaler for later use
-joblib.dump(minmaxScaler, out_dir+'minmaxScaler_dilepton_reduced_bkg.pkl')
+joblib.dump(minmaxScaler, out_dir+'minmaxScaler_reduced_bkg.pkl')
 
 # Normalize
 train[norm_cols] = minmaxScaler.transform(train[norm_cols].values)
