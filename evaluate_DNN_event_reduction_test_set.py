@@ -18,7 +18,7 @@ sess = tf.Session()
 import keras.backend as K
 K.set_session(sess)
 from keras.models import load_model
-from sklearn.metrics import roc_auc_score, accuracy_score
+from sklearn.metrics import roc_auc_score
 from scipy.spatial import distance
 
 import utilities_parametric as u
