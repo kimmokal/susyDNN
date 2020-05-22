@@ -69,14 +69,3 @@ print '(nJet >= 9 vs. nJet = [6,7,8]): ' + str(js2)
 
 print '- - - - - - - - - -'
 print 'Overall test set ROC AUC: '+str(round(roc_auc_score(test_y,model.predict(test_x)), 4))
-
-print '- - - - - - - - - -'
-print 'Accuracy for individual MC samples'
-for sample in sorted(df_test.sampleName.unique()):
-    sample_y = df_test[df_test.sampleName == sample].copy().target
-    sample_x = df_test[df_test.sampleName == sample].copy().drop(columns=['target', 'sampleName', 'dM_Go_LSP'])
-    if len(sample_y) > 1:
-        sample_pred = np.squeeze(model.predict(sample_x))
-        sample_accuracy = 100*accuracy_score(sample_y, sample_pred.round())
-        print u.sample_decode(sample)+' ('+str(len(sample_y))+' events)'+': '+str(round(sample_accuracy, 2))+'%'
-print '- - - - - - - - - -'
