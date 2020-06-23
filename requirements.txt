@@ -8,5 +8,5 @@ root-pandas==0.6.1
 scikit-learn==0.20.3
 setGPU==0.0.7
 sklearn==0.0
-tensorflow==1.15.2
-tensorflow-gpu==1.15.2
+tensorflow==1.15.0
+tensorflow-gpu==1.15.0
