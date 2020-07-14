@@ -252,14 +252,14 @@ for trial in study:
     model.trainable = True
     advmodel.trainable = False
 
-    numberOfEpochs = 100
-    batchSize = 256
+    preClass_numberOfEpochs = 100
+    preClass_batchSize = 256
 
     # With sample weights
     model.fit(train_x,
               train_y,
-              epochs=numberOfEpochs,
-              batch_size = batchSize,
+              epochs=preClass_numberOfEpochs,
+              batch_size = preClass_batchSize,
               validation_split=0.2,
               shuffle=True)
 
@@ -281,8 +281,9 @@ for trial in study:
     inefficiencies_compressed = {"Signal" : [], "Bkg" : []}
     inefficiencies_uncompressed = {"Signal" : [], "Bkg" : []}
 
-    adv_numberOfEpochs = 100
-    DfR.fit(train_x_ttdilep, nJets_binned_ttdilep, epochs = adv_numberOfEpochs)
+    preAdv_numberOfEpochs = 100
+    preAdv_batchSize = 256
+    DfR.fit(train_x_ttdilep, nJets_binned_ttdilep, epochs = preAdv_numberOfEpochs, batch_size = preAdv_batchSize)
 
     print ' - second test set roc auc: ', round(roc_auc_score(test_y,model.predict(test_x)), 4)
 
