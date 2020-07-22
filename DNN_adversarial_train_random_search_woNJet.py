@@ -64,8 +64,9 @@ if num_of_trials < 0.:
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID";
 os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_number)
 
-gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.4)
-sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+#gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.4)
+#sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+sess = tf.Session()
 K.set_session(sess)
 
 ### Paths
@@ -285,8 +286,6 @@ for trial in study:
     preAdv_batchSize = 256
     DfR.fit(train_x_ttdilep, nJets_binned_ttdilep, epochs = preAdv_numberOfEpochs, batch_size = preAdv_batchSize)
 
-    print ' - second test set roc auc: ', round(roc_auc_score(test_y,model.predict(test_x)), 4)
-
     # Adversarial training
     batch_size = trial.parameters['adversarial_batch_size']
     num_epochs = 200
@@ -321,7 +320,6 @@ for trial in study:
         inefficiencies_compressed["Signal"].append(sig_compressed_ineff)
         inefficiencies_compressed["Bkg"].append(bkg_compressed_ineff)
         print "Signal inefficiency compressed: " + str(sig_compressed_ineff)
-        print "Bkg inefficiency uncompressed: " + str(bkg_compressed_ineff)
 
         pred_y_uncompressed = model.predict(test_x_uncompressed)
         bkg_output_uncompressed = pred_y_uncompressed[test_y_uncompressed==0]
@@ -332,7 +330,7 @@ for trial in study:
         inefficiencies_uncompressed["Signal"].append(sig_uncompressed_ineff)
         inefficiencies_uncompressed["Bkg"].append(bkg_uncompressed_ineff)
         print "Signal inefficiency uncompressed: " + str(sig_uncompressed_ineff)
-        print "Bkg inefficiency uncompressed: " + str(bkg_uncompressed_ineff)
+        print "Bkg inefficiency: " + str(bkg_uncompressed_ineff)
 
         ### Calculate the JS distance for bkg DNN output distributions with nJet=([4,5], [6,7,8], [>=9]) ###
         bkg_test_njet_4to5 = bkg_test_x_nJet < 0.1
@@ -367,15 +365,13 @@ for trial in study:
         plot_inefficiencies(i, inefficiencies_compressed, inefficiencies_uncompressed, lam, num_epochs, 'Inefficiencies_'+model_name+'_lambda'+str(lam))
 
         roc_aoc = 1 - round(roc_auc_score(test_y,model.predict(test_x)), 4)
+        print 'ROC area over curve: ' + str(roc_aoc)
 
         # Save the metrics for the best models to a .csv file
         if (js1<=0.08 and js2<=0.08 and sig_uncompressed_ineff<=0.7 and sig_compressed_ineff<=0.8 and bkg_uncompressed_ineff<=0.1):
             metrics_path = save_path+model_name+'_best_metrics.txt'
-            metrics_to_csv(metrics_path, i, js1, js2, sig_uncompressed_ineff, sig_compressed_ineff, bkg_uncompressed_ineff, roc_aoc)
+            metrics_to_csv(metrics_path, i+1, js1, js2, sig_uncompressed_ineff, sig_compressed_ineff, bkg_uncompressed_ineff, roc_aoc)
 
         # Save the model
         model_save_name = 'susyDNN_adv_model_'+model_name+'_lambda_'+str(lam)+'_epoch_'+str(i+1)
         model.save(save_path+model_save_name+'.h5')
-
-    print '- - - - - - -'
-    print ' - Final test set roc auc: ', round(roc_auc_score(test_y,model.predict(test_x)), 4)
