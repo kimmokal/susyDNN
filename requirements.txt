@@ -1,7 +1,7 @@
 hickle==3.4.3
 keras==2.2.4
 matplotlib==2.2.4
-numpy==1.16.4
+numpy==1.22.0
 pandas==0.24.2
 root-numpy==4.8.0
 root-pandas==0.6.1
