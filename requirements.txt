@@ -9,4 +9,4 @@ scikit-learn==0.20.3
 setGPU==0.0.7
 sklearn==0.0
 tensorflow==1.15.0
-tensorflow-gpu==1.15.0
+tensorflow-gpu==2.9.3
